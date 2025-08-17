@@ -1,1 +1,78 @@
-Planteamiento de problema
+## 📌 1. Problema abordado
+El señor **Juan** desea invertir en un nuevo negocio y debe **vender una de sus cuatro tiendas** actuales.  
+Se nos solicita un análisis para identificar **la tienda menos eficiente** con base en cinco aspectos:
+
+1. **Facturación total** de cada tienda.  
+2. **Categorías más populares** (qué productos se venden más).  
+3. **Promedio de evaluación de clientes** por tienda.  
+4. **Top 5 y Bottom 5 productos** por tienda.  
+5. **Costo promedio de envío** desde la tienda al cliente.
+
+---
+
+## 🧭 2. Metodología (paso a paso)
+- **Recolección y limpieza:** carga de datos transaccionales; tipificación, manejo de nulos y estandarización de categorías.
+- **Agregaciones por tienda:** número de ventas, **facturación**, **promedio de precio** (si aplica), **promedio de envío**, **promedio de evaluación**.
+- **Exploración visual (EDA):**
+  - Barras de **ventas por categoría** por tienda.
+  - Histogramas de **calificaciones** (con la media rotulada).
+  - **Top 5** y **Bottom 5** productos por tienda.
+  - Productos **Top/Bottom en común** entre tiendas.
+- **Estimación económica simple** *(proxy de margen)*:  
+
+  **Ingreso neto estimado = Facturación − (Cantidad de ventas × Costo de envío promedio)**  
+
+  > Nota: No incluye otros costos (inventario, marketing, operación); sirve para comparar tiendas en igualdad de supuestos.
+- **Decisión**: consolidación de evidencias y recomendación ejecutiva.
+
+> El análisis completo y las figuras se generan en el notebook `notebooks/Challenge1_DataScience.ipynb`.
+
+---
+
+## 📈 3. Resultados destacados
+
+### 3.1 Volumen, facturación y ticket
+| Métrica | Tienda 1 | Tienda 2 | Tienda 3 | Tienda 4 |
+|---|---:|---:|---:|---:|
+| **Cantidad de ventas** | 2.359 | 2.359 | 2.359 | 2.358 |
+| **Facturación total** | $1.150.880.400 | $1.116.343.500 | $1.098.019.600 | $1.038.375.700 |
+| **Precio promedio** | $487.867,91 | $473.227,43 | $465.459,77 | —* |
+
+*La cifra de Tienda 4 no fue provista en el resumen; por tener ventas casi iguales y **menor facturación**, se **infiere un ticket promedio inferior** al de las otras tiendas.*
+
+**Insight:** El **volumen** es prácticamente el mismo en todas (≈2.359 ventas), pero la **Tienda 4 factura menos** → vende productos de **menor valor promedio**.
+
+### 3.2 Calificaciones de clientes
+Medias muy similares: **T1: 3.98**, **T2: 4.04**, **T3: 4.05**, **T4: 4.00**.  
+> No hay diferencias significativas; **no es un factor decisivo**.
+
+### 3.3 Top/Bottom 5 (visión ejecutiva)
+- **Top recurrentes:** *Cama King*, *Mesa de noche*, *Microondas* → productos “ancla” con demanda sólida en varias tiendas.
+- **Bottom recurrentes:** *Ciencia de datos con Python* y *Guitarra eléctrica* → baja rotación; optimizar inventario o liquidar.
+- **Heterogeneidad local:** *Microondas* es Top en varias tiendas pero aparece como Bottom en Tienda 3 → el **perfil de cliente varía** por zona.
+
+### 3.4 Logística (envíos) y estimación económica
+
+| Métrica | Tienda 1 | Tienda 2 | Tienda 3 | Tienda 4 |
+|---|---:|---:|---:|---:|
+| **Costo envío promedio** | $26.018,61 | $25.216,24 | $24.805,68 | $23.459,46 |
+| **Costo total estimado de envíos** | $61.377.900,99 | $59.485.100,72 | $58.516.599,12 | $55.317.399,61 |
+| **Ingreso neto estimado** | $1.089.502.499,01 | $1.056.858.399,28 | $1.039.503.000,88 | $983.058.300,39 |
+
+**Insight:** aunque **Tienda 4** tiene **menor costo de envío promedio**, su **ingreso neto estimado** sigue siendo el **más bajo** → su **mix de ventas/ticket** es desfavorable.
+
+---
+
+## 🧩 4. Conclusiones
+- La **Tienda 4** es **consistentemente la menos eficiente**:
+  - **Menor facturación total** con un volumen de ventas similar al resto.
+  - **Ticket promedio inferior** (inferido).
+  - **Ingreso neto estimado** más bajo, aun con **envío más barato**.
+  - No destaca en **satisfacción** ni en **productos estrella**.
+- **Decisión recomendada:** **vender la Tienda 4** para liberar capital y reinvertir.  
+- **Acciones tácticas adicionales:**
+  - Mantener inventario fuerte en *Cama King*, *Mesa de noche*, *Microondas*.
+  - Reducir/rotar inventario en *Ciencia de datos con Python* y *Guitarra eléctrica*.
+  - Ajustar **mix local** (caso *Microondas* en T3) según el comportamiento de cada zona.
+
+---
